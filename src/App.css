@@ -13,21 +13,21 @@ body {
   border-radius: 5px;
 }
 
-input, label {
+input, label, button {
   font-weight: 600;
   display: block;
   margin: 10px auto;
   width: 95%;
 }
 
-input {
+input, button {
   padding: 5px;
   border-radius: 5px;
   height: 30px;
   border: 2px solid #ddd;;
 }
 
-input[type=submit]{
+button {
   padding: 5px 10px;
   background: lightblue;
   border: 1px solid #777;

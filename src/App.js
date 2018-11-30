@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Object } from 'core-js';
+import Form from './components/Form'
+import DisplayUser from './components/DisplayUser'
 
-const DisplayUser = ({user}) => (
-  <div className='user-display box'> 
-  <h4>User Data:</h4>
-    {
-      Object.keys(user).map((property, i) => {
-        return (
-          <div className='property-list'>{`${property}: ${user[property]}`}</div>
-        )
-      })
-    }
-  </div>
-)
 
 class App extends Component {
-
   state = {
     user: {
       firstName: '',
@@ -25,30 +13,15 @@ class App extends Component {
       age: ''
     }
   }
-  
-  handleChange = async (e) => {
-    e.preventDefault();
-    const user = Object.keys(this.refs).reduce((acc, ref) => {
-      acc[ref] = this.refs[ref].value;
-      return acc;
-    }, {})
-    await this.setState({ user });
-    console.log('User: ',  this.state.user);
+  updateUser = async( user ) => {
+    await this.setState({ user })
   }
+
+
   render() {
     return (
       <div className="App">
-        <form className='box'>
-          <label htmlFor='firstName'>First Name:</label>
-          <input onChange={this.handleChange} type="text" name='firstName' ref='firstName'/>
-          <label htmlFor='lastName'>Last Name:</label>
-          <input onChange={this.handleChange} type="text" name='lastName' ref='lastName'/>
-          <label htmlFor='phoneNumber'>Phone Number:</label>
-          <input onChange={this.handleChange} type="text" name='phoneNumber' ref='phoneNumber'/>
-          <label htmlFor='age'>Age:</label>
-          <input onChange={this.handleChange} type="text" name='age' ref='age'/>
-          <input onChange={this.handleChange} type='submit' value='Submit'/>
-        </form>  
+        <Form updateUser={this.updateUser}/>
         <DisplayUser user={this.state.user}/>
       </div>
     );
