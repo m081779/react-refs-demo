@@ -2,23 +2,21 @@ import React from 'react';
 
 export default class Form extends React.PureComponent {
   
-  handleChange = async (e) => {
-    e.preventDefault();
-    const user = Object.keys(this.refs).reduce((acc, ref) => {
-      acc[ref] = this.refs[ref].value;
-      return acc;
-    }, {})
-    await this.props.updateUser( user );
+  handleChange = () => {
+    const user = Object.keys(this.refs).reduce((acc, ref) => ({
+      ...acc,
+      [ref]: this.refs[ref].value
+    }), {})
+    this.props.updateUser( user );
   }
 
   clearInputs = () => {
-    Object.keys(this.refs).forEach(ref => this.refs[ref].value = '');
-    this.props.updateUser({
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      age: ''
-    })
+    const user = Object.keys(this.refs).reduce((acc, ref) => {
+      this.refs[ref].value = '';
+      acc[ref] =  '';
+      return acc;
+    }, {});
+    this.props.updateUser( user );
   }
 
   render() {
